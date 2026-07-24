@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<BaseLayout title="Projects" description="A selection of projects I've built or led.">
+  <h1>Projects</h1>
+  {
+    projects.length === 0 ? (
+      <p class="empty-state">Nothing published here yet — check back soon.</p>
+    ) : (
+      <div class="project-grid">
+        {projects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .empty-state {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .project-grid {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+</style>

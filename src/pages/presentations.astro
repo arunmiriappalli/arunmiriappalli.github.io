@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { presentations } from '../data/presentations';
+---
+
+<BaseLayout title="Presentations" description="Talks and slide decks by Arun Chaitanya Miriappalli.">
+  <h1>Presentations</h1>
+  {
+    presentations.length === 0 ? (
+      <p class="empty-state">No talks published here yet — check back soon.</p>
+    ) : (
+      <ul class="presentation-list">
+        {presentations.map((talk) => (
+          <li>
+            <a href={talk.url}>{talk.title}</a>
+            {talk.date && <span class="presentation-list__date"> — {talk.date}</span>}
+            <p>{talk.description}</p>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .empty-state {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .presentation-list {
+    margin-top: var(--space-3);
+    list-style: none;
+    padding: 0;
+  }
+
+  .presentation-list li {
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .presentation-list__date {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .presentation-list p {
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+</style>

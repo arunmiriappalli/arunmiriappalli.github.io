@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { Image } from 'astro:assets';
+import avatar from '../assets/avatar.jpg';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <Image src={avatar} alt="Arun Chaitanya Miriappalli" width={112} height={112} class="hero__avatar" />
+    <div>
+      <h1>Arun Chaitanya Miriappalli</h1>
+      <p class="hero__tagline">
+        Engineering leader building fintech and SaaS platforms. Writing about engineering
+        leadership, AI-enabled systems, and lessons from scaling teams and platforms.
+      </p>
+      <p class="hero__links">
+        <a href="/about">About</a> · <a href="/resume">Resume</a> · <a href="/blog">Blog</a>
+      </p>
+    </div>
+  </section>
+
+  {
+    posts.length > 0 && (
+      <section class="latest">
+        <h2>Latest writing</h2>
+        {posts.map((post) => (
+          <PostCard post={post} />
+        ))}
+        <p>
+          <a href="/blog">All posts →</a>
+        </p>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .hero__avatar {
+    border-radius: 50%;
+    width: 112px;
+    height: 112px;
+    object-fit: cover;
+  }
+
+  .hero__tagline {
+    max-width: var(--measure);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  .hero__links {
+    margin-top: var(--space-2);
+  }
+
+  .latest {
+    margin-top: var(--space-5);
+  }
+
+  .latest p:last-child {
+    margin-top: var(--space-2);
+  }
+</style>

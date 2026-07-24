@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { contact, interests } from '../data/resume';
+---
+
+<BaseLayout title="About" description="About Arun Chaitanya Miriappalli — engineering leader in fintech and SaaS.">
+  <article class="prose">
+    <h1>About</h1>
+    <p>
+      I'm an engineering leader with 14+ years building and scaling fintech and SaaS platforms in
+      fast-growing startups. I currently lead engineering at BukuWarung, where I own payments and
+      financial products serving over 100,000 daily active SMB merchants across Indonesia.
+    </p>
+    <p>
+      My focus is on AI-enabled automation, data-driven decision systems, and cloud-native
+      architecture — turning engineering execution into business outcomes: shipping faster,
+      cutting cost, and keeping platforms reliable under regulatory constraints. I've led global
+      teams from 8 to 80+ people, across Tokyo, Shanghai, Chennai, Singapore, and India.
+    </p>
+    <p>
+      Outside of work I spend time on {interests.join(', ').toLowerCase()}.
+    </p>
+    <p>
+      I'm based in {contact.location}. You can reach me at{' '}
+      <a href={`mailto:${contact.email}`}>{contact.email}</a> or find me on the links below. For
+      the detailed version, see my <a href="/resume">résumé</a>.
+    </p>
+    <SocialLinks />
+  </article>
+</BaseLayout>

@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contact, summary, coreExpertise, employment, education, skills, interests } from '../data/resume';
+---
+
+<BaseLayout title="Résumé" description="Résumé of Arun Chaitanya Miriappalli — engineering leadership in fintech and SaaS.">
+  <article class="resume">
+    <header class="resume__header">
+      <h1>Arun Chaitanya Miriappalli</h1>
+      <p class="resume__title">Director of Engineering / Head of Engineering — Fintech & SaaS (AI-enabled Platforms)</p>
+      <p class="resume__contact">
+        {contact.location} · <a href={`mailto:${contact.email}`}>{contact.email}</a> ·
+        <a href={contact.linkedin}>LinkedIn</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p>{summary}</p>
+    </section>
+
+    <section>
+      <h2>Core Expertise</h2>
+      <ul class="chip-list">
+        {coreExpertise.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      {
+        employment.map((job) => (
+          <article class="resume-entry">
+            <div class="resume-entry__header">
+              <h3>{job.role}</h3>
+              <span class="resume-entry__time">{job.time}</span>
+            </div>
+            <p class="resume-entry__org">
+              {job.org}
+              {job.place && ` · ${job.place}`}
+            </p>
+            <ul>
+              {job.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      {
+        education.map((entry) => (
+          <article class="resume-entry">
+            <div class="resume-entry__header">
+              <h3>{entry.degree}</h3>
+              <span class="resume-entry__time">{entry.time}</span>
+            </div>
+            <p class="resume-entry__org">{entry.school}</p>
+            {entry.note && <p class="resume-entry__note">{entry.note}</p>}
+          </article>
+        ))
+      }
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      {
+        skills.map((group) => (
+          <div class="resume-entry">
+            <h3>{group.category}</h3>
+            <ul>
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
+
+    <section>
+      <h2>Interests</h2>
+      <p>{interests.join(', ')}</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .resume__header {
+    margin-bottom: var(--space-4);
+  }
+
+  .resume__title {
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .resume__contact {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .resume section {
+    margin-top: var(--space-4);
+  }
+
+  .resume section > h2 {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-1);
+    margin-bottom: var(--space-2);
+  }
+
+  .resume-entry {
+    margin-top: var(--space-3);
+  }
+
+  .resume-entry:first-child {
+    margin-top: 0;
+  }
+
+  .resume-entry__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .resume-entry__time {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .resume-entry__org {
+    color: var(--color-text-muted);
+    margin-top: 0.1rem;
+  }
+
+  .resume-entry__note {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+  }
+
+  .resume-entry ul {
+    margin-top: var(--space-1);
+    padding-left: 1.2em;
+  }
+
+  .resume-entry li + li {
+    margin-top: 0.35rem;
+  }
+
+  .chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .chip-list li {
+    background: var(--color-bg-subtle);
+    border-radius: 999px;
+    padding: 0.2rem 0.8rem;
+    font-size: 0.85rem;
+  }
+</style>

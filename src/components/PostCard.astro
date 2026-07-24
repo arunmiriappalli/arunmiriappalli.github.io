@@ -1,0 +1,79 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const formattedDate = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="post-card">
+  <a class="post-card__title" href={`/blog/${post.id}/`}>{post.data.title}</a>
+  <div class="post-card__meta">
+    <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+    {
+      post.data.tags.length > 0 && (
+        <span class="post-card__tags">
+          {post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </span>
+      )
+    }
+  </div>
+  <p class="post-card__description">{post.data.description}</p>
+</article>
+
+<style>
+  .post-card {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-card:last-child {
+    border-bottom: none;
+  }
+
+  .post-card__title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .post-card__title:hover {
+    color: var(--color-accent);
+  }
+
+  .post-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: 0.25rem;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .post-card__tags {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    background: var(--color-bg-subtle);
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+  }
+
+  .post-card__description {
+    margin-top: 0.5rem;
+    color: var(--color-text-muted);
+  }
+</style>

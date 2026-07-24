@@ -1,0 +1,43 @@
+---
+import { SOCIAL } from '../consts';
+
+const links = [
+  { label: 'GitHub', href: `https://github.com/${SOCIAL.github}` },
+  { label: 'LinkedIn', href: SOCIAL.linkedin },
+  { label: 'Twitter', href: `https://twitter.com/${SOCIAL.twitter}` },
+  { label: 'Stack Overflow', href: `https://stackoverflow.com/${SOCIAL.stackoverflow}` },
+  { label: 'Email', href: `mailto:${SOCIAL.email}` },
+];
+---
+
+<ul class="social-links">
+  {
+    links.map((link) => (
+      <li>
+        <a href={link.href} rel="me">
+          {link.label}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    list-style: none;
+    padding: 0;
+  }
+
+  .social-links a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .social-links a:hover {
+    color: var(--color-accent);
+  }
+</style>
