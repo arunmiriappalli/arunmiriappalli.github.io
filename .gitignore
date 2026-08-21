@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # personal documents dropped in the repo root for reference — not site content
 *.pdf
+
+# scratch notes for drafting future articles — not site content
+temp/
